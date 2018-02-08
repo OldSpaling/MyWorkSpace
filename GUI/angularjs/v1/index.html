@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+    <link rel="stylesheet" href="https://angular-ui.github.io/ui-select/dist/select.css">
+    <style>
+        .container{
+            margin: 100px auto 0;
+            width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="app">
+        <div ng-controller="selectDemo as self" ng-init="self.init()">
+            <div class="row" <div class="form-group">
+                <ui-select multiple ng-model="self.ChangeInArray" theme="bootstrap" close-on-select="false"
+                    style="width: 300px;" title="Choose a color">
+                    <ui-select-match placeholder="Select colors...">{{$item.name}}</ui-select-match>
+                    <ui-select-choices repeat="item.value as item in self.Source|filter:{display:true}|filter:{status:true} | filter:$select.search">
+                        {{item.name}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+             <div class="row" <div class="form-group">
+                <ui-select multiple ng-model="self.unChangeInArray" theme="bootstrap" close-on-select="false"
+                    style="width: 300px;" title="Choose a color">
+                    <ui-select-match placeholder="Select colors...">{{$item.name}}</ui-select-match>
+                    <ui-select-choices repeat="item.value as item in self.Source|filter:{display:true}| filter:$select.search">
+                        {{item.name}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+    <script src="https://angular-ui.github.io/ui-select/dist/select.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
