@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="position: relative;
+    margin: 0 auto;
+    width: 1100px;
+    height: 680px;
+    margin-top: 10px;">
+        <canvas id="drawing" onclick="canvasClick()"></canvas>
+    </div>
+
+    <img id="flower" src="test.jpg" style="width:5px" />
+    <script>
+        var times = 15;
+        var animationInterval = 100;
+        var drawing = document.getElementById("drawing"),
+            pic = document.getElementById('flower'); //获取描边图片
+        drawing.width = '1100';
+        drawing.height = '680';
+        var content = drawing.getContext("2d");
+        function draw() {
+            var radian_right = Math.PI;
+            var radian_left = Math.PI;
+            radian_add_right = -Math.PI / 40;
+            radian_add_left = Math.PI / 40;
+            content.translate(drawing.width / 2 - 20, drawing.height / 2);
+            function heartRight() {
+                X = getX1(radian_right);
+                Y = getY1(radian_right);
+                content.drawImage(pic, X, Y, 25, 25);   //在给定坐标绘制给定大小的图片
+                radian_right += radian_add_right;
+                if (radian_right < 0) { //绘制完整的心型线后取消间歇调用 
+                    clearInterval(intervalIdRight);
+                }
+            }
+            function heartLeft() {
+                X = getX1(radian_left);
+                Y = getY1(radian_left);
+                content.drawImage(pic, X, Y, 25, 25);   //在给定坐标绘制给定大小的图片
+                radian_left += radian_add_left;
+                if (radian_left > (2 * Math.PI)) { //绘制完整的心型线后取消间歇调用 
+                    clearInterval(intervalIdLeft);
+                }
+            }
+            //intervalIdRight = setInterval(heartRight, animationInterval);  //设置间歇调用，间隔为100ms
+            //intervalIdLeft = setInterval(heartLeft, animationInterval);  //设置间歇调用，间隔为100ms
+        }
+        // 15是原生大小的倍数
+        function getX1(t) {  //获取心型线的X坐标
+            return times * (16 * Math.pow(Math.sin(t), 3))
+        }
+
+        function getY1(t) {  //获取心型线的Y坐标
+            return -times * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))
+        }
+        draw();
+        function canvasClick() {
+           content.transform(1,0,0,1,drawing.width/2,drawing.height/2);  
+        }
+        // setTimeout(function () {
+        //     setInterval(function () {
+        //         window.requestAnimationFrame(function () {
+        //             times = times / 2;
+        //             animationInterval = 1;
+        //             draw();
+        //         });
+        //     },100);
+
+        // }, 4500);
+    </script>
+</body>
+
+</html>
